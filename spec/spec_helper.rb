@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "string_unpacker"
+require "unpacker"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
