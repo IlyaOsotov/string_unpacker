@@ -14,12 +14,21 @@ RSpec.describe Unpacker do
     context "when complex string" do
       let(:string) { 'a4bc2d5e' }
       it { expect(subject).to eq 'aaaabccddddde' }
-      let(:string) { 'qwe\4\5' }
-      it { expect(subject).to eq 'qwe45' }
-      let(:string) { 'qwe\45' }
-      it { expect(subject).to eq 'qwe44444' }
-      let(:string) { 'qwe\\4' }
-      it { expect(subject).to eq 'qwe\\\\' }
+      
+      context "when single backslashes" do
+        let(:string) { 'qwe\\4\\5' }
+        it { expect(subject).to eq 'qwe45' }  
+      end
+      
+      context "when one backslash" do
+        let(:string) { 'qwe\\45' }
+        it { expect(subject).to eq 'qwe44444' }
+      end
+      
+      context "when multiple backslashes" do
+        let(:string) { 'qwe\\\\4' }
+        it { expect(subject).to eq 'qwe\\\\' }
+      end
     end
   end
 
