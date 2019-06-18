@@ -3,7 +3,6 @@ require "string_unpacker/version"
 class Unpacker
   def initialize
     @letters = []
-    @numbers = []
     @is_backslash_last = false
   end
 
@@ -22,7 +21,7 @@ class Unpacker
 
   private
 
-  attr_accessor :letters, :numbers
+  attr_accessor :letters
 
   def check_number(number)
     if backslash_last?
