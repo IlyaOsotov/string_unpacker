@@ -4,31 +4,45 @@ class Unpacker
   def initialize
     @letters = []
     @numbers = []
-    @result = ''
+    @is_backslash_last = false
   end
 
   def call(string)
     string.split('').each do |letter|
-      if letter.to_i == letter
+      if letter.to_i.to_s == letter
         check_number(letter)
       elsif letter == '\\'
         check_slash
       else
-        check_letter(letter)
+        letters.push(letter)
       end
     end
+    letters.join
   end
 
   private
 
-  attr_accessor :letters, :numbers, :result
+  attr_accessor :letters, :numbers
 
   def check_number(number)
+    if backslash_last?
+      letters.push(number)
+      @is_backslash_last = false
+    else
+      letters.push(letters.pop * number.to_i)
+    end
   end
 
   def check_slash
+    if backslash_last?
+      @is_backslash_last = false
+      letters.push("\\")
+    else
+      @is_backslash_last = true
+    end
   end
 
-  def check_letter(letter)
+  def backslash_last?
+    @is_backslash_last
   end
 end

@@ -1,8 +1,4 @@
 RSpec.describe Unpacker do
-  it "has a version number" do
-    expect(StringUnpacker::VERSION).not_to be nil
-  end
-
   subject { Unpacker.new.call(string) }
 
   context "when valid string" do
@@ -27,13 +23,13 @@ RSpec.describe Unpacker do
       
       context "when multiple backslashes" do
         let(:string) { 'qwe\\\\4' }
-        it { expect(subject).to eq 'qwe\\\\' }
+        it { expect(subject).to eq 'qwe\\\\\\\\' }
       end
     end
   end
 
   context "when invalid string" do
     let(:string) { '45' }
-    it { expect { subject }.to raise_error } 
+    it { expect { subject }.to raise_error Exception } 
   end
 end
